@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas height="512" id="canvas" tabindex="0"></canvas>
+    <!--Matrixes-->
+    <script src="src\Rendering\matrix3x3.js"></script>
+    <!--Vectors-->
+    <script src="src/Rendering/vec2.js"></script>
+    <script src="src/Rendering/vec3.js"></script>
+    <!--Inputer-->
+    <script src="src/Input/input-manager.js"></script>
+    <!--Camera-->
+    <script src="src\Rendering\camera.js"></script>
+    <!--Config-->
+    <script src="src/config.js"></script>
+    <!--Primitives-->
+    <script src="src/Bases/primitive-base.js"></script>
+    <script src="src/Rendering/Primitives/rectangle.js"></script>
+    <!--Objects-->
+    <script src="src/Bases/app-obj.js"></script>
+    <script src="src/AppObjects/hitbox.js"></script>
+    <script src="src\AppObjects\hitboxes\resizable.js"></script>
+    <script src="src\AppObjects\hitboxes\states\upResizable.js"></script>
+    <script src="src\AppObjects\hitboxes\states\rectangle\upRectResizable.js"></script>
+    <script src="src\AppObjects\hitboxes\states\downResizable.js"></script>
+    <script src="src\AppObjects\hitboxes\states\rectangle\downRectResizable.js"></script>
+    <script src="src\AppObjects\hitboxes\states\leftResizable.js"></script>
+    <script src="src\AppObjects\hitboxes\states\rectangle\leftRectResizbale.js"></script>
+    <script src="src\AppObjects\hitboxes\states\rightResizable.js"></script>
+    <script src="src\AppObjects\hitboxes\states\rectangle\rightRectResizable.js"></script>
+    <script src="src\AppObjects\factories\resizable-factory.js"></script>
+    <script src="src/AppObjects/hitboxes/dragabble.js"></script>
+    <script src="src\AppObjects\hitboxes\rectDragabble.js"></script>
+    <script src="src/AppObjects/ui-component.js"></script>
+    <!--Main-->
+    <script src="src/main.js"></script>
+</body>
+</html>
