@@ -3,14 +3,15 @@ class inputManager {
     _instance = Symbol();
     observers =  [];
     constructor() {
+        this.ths = this
     }
     mouseMove(e) {
         e.preventDefault();
         e.stopPropagation();
         let mCoords = new vec2(parseInt(e.clientX - OFFSETX), parseInt(e.clientY - OFFSETY))
-        for(let i = 0; i < inputer.observers.length; i++) {
-            if(typeof inputer.observers[i].onMouseMove !== "undefined") {
-                inputer.observers[i].onMouseMove(mCoords);
+        for(let i = 0; i < this.observers.length; i++) {
+            if(typeof this.observers[i].onMouseMove !== "undefined") {
+                this.observers[i].onMouseMove(mCoords);
             }
         }
         startCoords = mCoords;
@@ -21,9 +22,9 @@ class inputManager {
         let clicked;
         let mCoords = new vec2(parseInt(e.clientX - OFFSETX), parseInt(e.clientY - OFFSETY))
         console.log(mCoords)
-        for(let i = 0; i < inputer.observers.length; i++) {
-            if(typeof inputer.observers[i].onMouseClick !== "undefined") {
-                clicked = inputer.observers[i].onMouseClick(mCoords);
+        for(let i = 0; i < this.observers.length; i++) {
+            if(typeof this.observers[i].onMouseClick !== "undefined") {
+                clicked = this.observers[i].onMouseClick(mCoords);
             }
             if(clicked) {
                 break;
@@ -34,36 +35,23 @@ class inputManager {
     mouseLeave(e) {
         e.preventDefault();
         e.stopPropagation();
-        for(let i = 0; i < inputer.observers.length; i++) {
-            if(typeof inputer.observers[i].onMouseLeave !== "undefined") {
-                inputer.observers[i].onMouseLeave(e);
+        for(let i = 0; i < this.observers.length; i++) {
+            if(typeof this.observers[i].onMouseLeave !== "undefined") {
+                this.observers[i].onMouseLeave(e);
             }
         }
     }
     mouseRel(e) {
         e.preventDefault();
         e.stopPropagation();
-        for(let i = 0; i < inputer.observers.length; i++) {
-            if(typeof inputer.observers[i].onMouseRel !== "undefined") {
-                inputer.observers[i].onMouseRel(e);
+        for(let i = 0; i < this.observers.length; i++) {
+            if(typeof this.observers[i].onMouseRel !== "undefined") {
+                this.observers[i].onMouseRel(e);
             }
         }
     }
-    keyPress(e) { 
-        for(let i = 0; i < inputer.observers.length; i++) {
-            if(typeof inputer.observers[i].onKeyPress !== "undefined") {
-                inputer.observers[i].onKeyPress(e);
-            }
-        }
-    }
-    keyRel(e) {
-        for(let i = 0; i < inputer.observers.length; i++) {
-            if(typeof inputer.observers[i].onKeyRel !== "undefined") {
-                inputer.observers[i].onKeyRel(e);
-            }
-        }
-    }
-    //Register observer functions
+
+    // observer functions
     registerObserver(observer) {
         this.observers.push(observer)
     }

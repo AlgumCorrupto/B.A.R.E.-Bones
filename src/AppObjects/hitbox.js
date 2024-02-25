@@ -35,7 +35,7 @@ class hitbox extends appObj {
         super(coords, size, color);
         this.active = false;
         this.parent = parent;
-        inputer.registerObserver(this)
+        gContext.inputStates[0].registerObserver(this)
     }
 
     updateParent(coords, size) {

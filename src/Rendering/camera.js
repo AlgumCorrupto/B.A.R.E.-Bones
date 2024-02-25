@@ -1,19 +1,21 @@
 class camera {
     position;
-    velocity;
+    velocity = new vec2(0, 0);;
+    velFactor
     zoom;
+    xState = new emptyState(this);
+    yState = new emptyState(this);
+    limit
+    friction;
+    mOffset;
+    e = false;
+    q = false;
     a = false;
     s = false;
     w = false;
     d = false;
-    e = false;
-    q = false;
-    limit
-    friction;
-    mOffset;
     constructor(coords, size) {
         this.position = coords;
-        this.velocity = new vec2(0, 0)
         this.limit = 11;
         this.friction = 1;
         this.size = size;
@@ -22,7 +24,7 @@ class camera {
         const scaledWidth = canvas.width * this.size.x;
         const scaledHeight = canvas.height * this.size.y
         this.scaledOffset = new vec2((scaledWidth - canvas.width) * 0.5, (scaledHeight - canvas.height) * 0.5)
-        inputer.registerObserver(this);
+        kb.Observer(this);
     }
 
     worldToScreen(coords){
@@ -35,32 +37,18 @@ class camera {
         coords = coords.divVec2(this.size)
         return coords.subVec2(this.position);
     }
-    //worldToScreen(coords){
-    //    return this.size.mutVec2(coords.addVec2(this.position))
-    //};
-    //screenToWorld(coords){
-    //    coords = coords.subVec2(this.position);
-    //    return coords.divVec2(this.size)
-    //}
-    //worldToScreen(coords){
-    //    coords = this.position.mutVec2(cam.size);
-    //    coords = coords.subVec2(cam.scaledOffset);
-    //    coords = coords.addVec2(this.position)
-    //    return coords.mutVec2(this.size)
-    //};
-    //screenToWorld(coords){
-    //    coords = this.position.mutVec2(cam.size);
-    //    coords = coords.subVec2(cam.scaledOffset);
-    //    coords = coords.subVec2(this.position);
-    //    return coords.divVec2(this.size)
-    //}
     update() {
-        
         if(this.e) {
             this.size = this.size.addConst(.1);
         }
         if(this.q) {
             this.size = this.size.subConst(.1);
+        }
+        if(this.size.x < 0.1) {
+            this.size.x = 0.1;
+        }
+        if(this.size.y < 0.1) {
+            this.size.y = 0.1
         }
 
         const scaledWidth = canvas.width * this.size.x;
@@ -81,18 +69,8 @@ class camera {
             this.velocity.y += this.friction
         }
 
-        if(this.d) {
-            this.velocity = this.velocity.addVec2(new vec2(-5, 0))
-        }
-        if(this.a) {
-            this.velocity = this.velocity.addVec2(new vec2(5, 0))
-        }
-        if(this.w) {
-            this.velocity = this.velocity.addVec2(new vec2(0, 5))
-        }
-        if(this.s) {
-            this.velocity = this.velocity.addVec2(new vec2(0, -5))
-        }
+        this.velocity = this.xState.move(this.velocity);
+        this.velocity = this.yState.move(this.velocity);
 
         if(this.velocity.x > this.limit) {
             this.velocity.x = this.limit
@@ -113,43 +91,60 @@ class camera {
     }
 
     onKeyPress(e) {
-        if(e.key == "d") {
-           this.d = true
+        //d key
+        if(e.keyCode == 68) {
+           this.xState = new rightState(this);
         }
-        if(e.key == "a") {
-            this.a = true
+        //a key
+        if(e.keyCode == 65) {
+            this.xState = new leftState(this)
         }
-        if(e.key == "w") {
-            this.w = true
+        //w key
+        if(e.keyCode == 87) {
+            this.yState = new upState(this);
         }
-        if(e.key == "s") {
-            this.s = true
+        //s key
+        if(e.keyCode == 83) {
+            this.yState = new downState(this);
         }
-        if(e.key == "e") {
+
+        if(e.keyCode == 69) {
             this.e = true
         }
-        if(e.key == "q") {
+        if(e.keyCode == 81) {
             this.q = true
         }
     }
+    onShiftPress(e) {
+        this.limit = 30;
+    }
     onKeyRel(e) {
-        if(e.key == "d") {
-            this.d = false
+        //d
+        if(e.keyCode == 68) {
+            this.xState = new emptyState(this);
          }
-         if(e.key == "a") {
-             this.a = false
+         //a
+         if(e.keyCode == 65) {
+            this.xState = new emptyState(this);
          }
-         if(e.key == "w") {
-             this.w = false
+         //w
+         if(e.keyCode == 87) {
+            this.yState = new emptyState(this);
          }
-         if(e.key == "s") {
-            this.s = false
+         //s
+         if(e.keyCode == 83) {
+            this.yState = new emptyState(this);
          }
-         if(e.key == "e") {
+         //e
+         if(e.keyCode == 69) {
             this.e = false
         }
-        if(e.key == "q") {
+        //q
+        if(e.keyCode == 81) {
             this.q = false
         }
+    }
+    onShiftRel(e) {
+        this.limit = 11;
     }
 }
