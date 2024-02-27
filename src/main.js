@@ -1,8 +1,9 @@
 let test = []
-test[0] = new interactiveRect(COORDS, SIZE, "red");
-test[1] = new interactiveRect(COORDS.addConst(64), SIZE, "blue");
-test[2] = new interactiveRect(COORDS.addConst(150), SIZE.mutConst(1.5), "green")
-test[3] = new interactiveRect(new vec2(canvas.width / 2, canvas.height / 2), SIZE, "olive")
+test[0] = new interactiveRect(COORDS, SIZE, "red", 0);
+test[1] = new interactiveRect(COORDS.addConst(64), SIZE, "blue", 1);
+test[2] = new interactiveRect(COORDS.addConst(150), SIZE.mutConst(1.5), "green", 2)
+test[3] = new interactiveRect(new vec2(canvas.width / 2, canvas.height / 2), SIZE, "olive", 3)
+let idCount = 4 
 
 let rectFactory = new intrectFactory();
 

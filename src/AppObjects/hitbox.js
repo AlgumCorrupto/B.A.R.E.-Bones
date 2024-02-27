@@ -1,9 +1,7 @@
 class hitbox extends appObj {
     active = false;
-    onMouseClick = (mCoords) => {
+    onMouseClick = (mCoords, button) => {
         this.active = true;
-        e.preventDefault();
-        e.stopPropagation();
         let size = new vec2(1, 1);
         mCoords = cam.screenToWorld(mCoords)
         let bounding = this.primitive.inBounds(mCoords, size);
@@ -13,7 +11,7 @@ class hitbox extends appObj {
         }
         return true
     }
-    onMouseMove = (e) => {
+    onMouseMove = (mCoords) => {
         //let mCoords = new vec2(e.clientX -OFFSETX , e.clientY - OFFSETY);
         //let size = new vec2(1, 1);
         //let bounding = this.inBounds(mCoords, size);
@@ -24,18 +22,21 @@ class hitbox extends appObj {
         //offset = this.relativeTo(mCoords);
     }
     onMouseLeave = (e) => {
-        super.onMouseLeave(e);
+        //super.onMouseLeave(e);
         this.updateParent(this.coords, this.size)
     }
     onMouseRel = (e) => {
-        super.onMouseLeave(e);
+        //super.onMouseLeave(e);
         this.updateParent(this.coords, this.size)
     }
     constructor(coords, size, color, parent) {
         super(coords, size, color);
         this.active = false;
         this.parent = parent;
-        gContext.inputStates[0].registerObserver(this)
+        //gContext.inputStates[0].registerObserver(this.onMouseMove, "move")
+        //gContext.inputStates[0].registerObserver(this.onMouseLeave, "leave")
+        //gContext.inputStates[0].registerObserver(this.onMouseClick, "click")
+        //gContext.inputStates[0].registerObserver(this.onMouseRel, "rel")
     }
 
     updateParent(coords, size) {
@@ -46,5 +47,19 @@ class hitbox extends appObj {
         this.coords = coords;
         this.size = size;
         this.primitive.update(this.coords, this.size, this.color);
+    }
+
+    registerObservers() {
+        gContext.inputStates[0].registerObserver(this.onMouseMove, "move")
+        gContext.inputStates[0].registerObserver(this.onMouseLeave, "leave")
+        gContext.inputStates[0].registerObserver(this.onMouseClick, "click")
+        gContext.inputStates[0].registerObserver(this.onMouseRel, "rel")
+    }
+
+    removeObservers() {
+        gContext.inputStates[0].removeObserver(this.onMouseMove, "move")
+        gContext.inputStates[0].removeObserver(this.onMouseLeave, "leave")
+        gContext.inputStates[0].removeObserver(this.onMouseClick, "click")
+        gContext.inputStates[0].removeObserver(this.onMouseRel, "rel")
     }
 }

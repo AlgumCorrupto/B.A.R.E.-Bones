@@ -1,8 +1,8 @@
 class context {
     constructor(inputStates) {
         this.inputStates = inputStates;
-        this.inputer = inputStates[0];
-        this.stateIndex = 0;
+        this.stateIndex = 1;
+        this.inputer = inputStates[this.stateIndex];
         kb.Observer(this);
         //this.rectFactory = new intrectFactory(this);
     }

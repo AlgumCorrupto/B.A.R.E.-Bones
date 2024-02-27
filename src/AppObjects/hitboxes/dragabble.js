@@ -1,5 +1,5 @@
 class hitboxDragabble extends hitbox {
-    onMouseClick = (mCoords) => {
+    onMouseClick = (mCoords, button) => {
         let size = new vec2(1, 1);
         mCoords = cam.screenToWorld(mCoords)
         let bounding = this.primitive.inBounds(mCoords, size);
@@ -32,5 +32,10 @@ class hitboxDragabble extends hitbox {
     }
     constructor(coords, size, color, parent) {
         super(coords, size, color, parent)
+        this.registerObservers();
+        //gContext.inputStates[0].registerObserver(this.onMouseMove, "move")
+        //gContext.inputStates[0].registerObserver(this.onMouseRel, "leave")
+        //gContext.inputStates[0].registerObserver(this.onMouseClick, "click")
+        //gContext.inputStates[0].registerObserver(this.onMouseRel, "rel")
     }
 }
