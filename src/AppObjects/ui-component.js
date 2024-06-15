@@ -19,10 +19,11 @@ class interactiveRect extends appObj {
             this.resizableAreas[i].updateItself(this.coords, this.size);
         }
     }
-    update(coords, size, color) {
+    update(coords, size, color=this.color) {
         this.coords = coords;
         this.size = size;
         this.color = color;
+        
     }
     draw() {
         this.primitive.draw();

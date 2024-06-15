@@ -13,12 +13,19 @@
 <body>
     <canvas height="512" id="canvas" tabindex="0" oncontextmenu="return false;"></canvas>
     <p>State:</p>
+    <spam>
+        <button id="undo">Undo</button>
+        <button id="redo">Redo</button>
+    </spam>
     <!--Vectors-->
     <script src="src/Rendering/vec2.js"></script>
     <script src="src/Rendering/vec3.js"></script>
     <!--Inputer-->
     <script src="src\Input\kb-manager.js"></script>
     <script src="src/Input/input-manager.js"></script>
+    <!--Memento-->
+    <script src="src\memento\memento.js"></script>
+    <script src="src\memento\mementoAction.js"></script>
     <!--Camera-->
     <script src="src\Rendering\camera-states\cameraState.js"></script>
     <script src="src\Rendering\camera-states\down.js"></script>

@@ -3,6 +3,7 @@ class context {
         this.inputStates = inputStates;
         this.stateIndex = 1;
         this.inputer = inputStates[this.stateIndex];
+
         kb.Observer(this);
         //this.rectFactory = new intrectFactory(this);
     }

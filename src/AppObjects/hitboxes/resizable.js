@@ -39,10 +39,14 @@ class resizableHitbox extends hitbox {
     onMouseLeave = (mCoords) => {
         if(this.active) {
             this.active = false;
+            let action = new MementoAction(this.parent, this.parent.size, this.parent.coords)
+            memento.update(action)
         }
     }
     onMouseRel = (mCoords) => {
         if(this.active) {
+            let action = new MementoAction(this.parent, this.parent.size, this.parent.coords)
+            memento.update(action)
             this.active = false;
         }
     }

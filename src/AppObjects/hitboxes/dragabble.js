@@ -28,6 +28,8 @@ class hitboxDragabble extends hitbox {
     onMouseRel = (e) => {
         if(this.active) {
             this.active = false
+            let action = new MementoAction(this.parent, this.parent.size, this.parent.coords)
+            memento.update(action)
         }
     }
     constructor(coords, size, color, parent) {

@@ -16,6 +16,9 @@ let inputer = new inputManager();
 let kb = new kbManager();
 const state2In = new inputManager();
 const state1In = new inputManager();
+let memento = new Memento([], 0);
+document.getElementById('undo').addEventListener('click', () => memento.goBack());
+document.getElementById('redo').addEventListener('click', () => memento.goFoward());
 let cam = new camera(new vec2(0, 0), new vec2(1,1));
 // drag related variables
 var dragok = false;
